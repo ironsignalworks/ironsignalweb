@@ -3,178 +3,185 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <title>Behind the Signal</title>
+  <title>Behind the Signal // Pedro @ IRON SIGNAL WORKS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pedro – experimental media, sound, and web. Signal-driven systems, brutalist design, and games.">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
-      background-color: black;
-      color: #adff2f; /* radioactive lime green */
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 16px; /* 20% smaller */
-      line-height: 1.6;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      background: #000;
+      font-family: 'Share Tech Mono', 'Courier New', Courier, monospace;
+      color: #0f2211;
+      letter-spacing: .1em;
       overflow-x: hidden;
     }
-
+    /* Background GIF */
     body::before {
       content: "";
       position: fixed;
+      z-index: 0;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3pqYWJkZXh4dnQ4aWhwNHBrcXhnNGN4N3c3eTV3Z2Zmc2l1c2RxeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEduXdgk7mKRnwrlK/giphy.gif') no-repeat center center / cover;
-      opacity: 0.01;
-      z-index: -1;
-      animation: pulse 6s ease-in-out infinite;
+      width: 100vw; height: 100vh;
+      background: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDVwcG1lbHc5bWpxaGprNmR6dGlkMzJsZnJlbGRxdWVwdjYxNGx4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bwHd70CXzgyQg/giphy.gif') center center / cover no-repeat;
+      filter: brightness(0.57) contrast(1.14) grayscale(0.3);
+      opacity: 0.87;
+      pointer-events: none;
     }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.07; }
-      50% { opacity: 0.1; }
+    /* Central Card ("File") */
+    .bio-panel {
+      position: relative;
+      z-index: 1;
+      max-width: 580px;
+      margin: 7vh auto 4vh auto;
+      background: rgba(250,255,248,0.97);
+      border: 2.5px solid #8fa47a;
+      border-radius: 14px;
+      box-shadow: 0 6px 42px #0016 0 0 1px #0009;
+      padding: 2.7rem 2.3rem 2.3rem 2.3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      backdrop-filter: blur(0.5px);
     }
-
-    .crt {
-      text-shadow: 0 0 2px #adff2f, 0 0 8px #adff2f;
-      animation: flicker 2s infinite;
+    .bio-photo {
+      width: 158px; height: 158px;
+      border-radius: 7px;
+      border: 3px solid #3f4;
+      background: url('bio1.png') center center / cover no-repeat;
+      margin-bottom: 1.4rem;
+      box-shadow: 0 3px 16px #3f4a;
     }
-
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.95; }
-      55% { opacity: 1; }
-      60% { opacity: 0.92; }
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 4rem auto;
-      padding: 2rem;
-      border: 2px solid #adff2f;
-      background-color: rgba(0, 0, 0, 0.75);
-      opacity: 0.5;
-    }
-
-    h1, h2 {
-      text-transform: uppercase;
-      border-bottom: 1px solid #adff2f;
-      padding-bottom: 0.25rem;
-      margin-top: 2rem;
-    }
-
-    .photo {
-      width: 200px;
-      height: 200px;
-      background: url('bio1.png') no-repeat center center / cover;
-      border: 2px solid #adff2f;
-      margin: 0 auto 2rem auto;
-      box-shadow: 0 0 10px #adff2f;
-    }
-
-    a {
-      color: #adff2f;
-      text-decoration: underline;
-    }
-
-    details {
-      margin-bottom: 0rem;
-      cursor: pointer;
-    }
-
-    summary {
+    .bio-title {
+      font-size: 2.1rem;
       font-weight: bold;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      outline: none;
+      color: #1d2c15;
+      letter-spacing: 0.14em;
+      margin-bottom: .1em;
+      text-align: center;
+      text-transform: uppercase;
+      line-height: 1.09;
     }
-
-    ul {
-      margin: 0 0 0 1.5rem;
-      padding: 0;
-      list-style-type: disc;
+    .bio-role {
+      font-size: 1.11rem;
+      color: #394e2a;
+      margin-bottom: 1.1em;
+      text-align: center;
+      letter-spacing: .12em;
     }
-
-    ul li {
-      margin-bottom: 0.25rem;
+    .divider {
+      width: 100%;
+      border: none;
+      border-top: 1.9px solid #8fa47a;
+      margin: 1.5rem 0 1.6rem 0;
     }
-
+    .bio-section-title {
+      color: #233417;
+      font-size: 1.08rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      margin-bottom: 0.8em;
+      text-transform: uppercase;
+    }
+    .bio-modules {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5em 2.2em;
+      margin-bottom: 1.2em;
+      width: 100%;
+    }
+    .bio-module {
+      font-size: 1.04rem;
+      line-height: 1.55;
+      color: #26331c;
+      margin-left: .1em;
+      border-left: 3px solid #9ce57c;
+      padding-left: .8em;
+      margin-bottom: .6em;
+      font-weight: 500;
+      background: linear-gradient(90deg, #e3fbe1 88%, #c3eac1 100%);
+    }
+    /* Contact */
+    .bio-contact {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 1.5em;
+      margin-top: 1.1em;
+      flex-wrap: wrap;
+    }
+    .bio-contact a {
+      color: #194e2d;
+      background: #e8fff3;
+      padding: .6em 1.3em;
+      border-radius: 7px;
+      border: 1px solid #bce8b5;
+      text-decoration: none;
+      font-size: 1.08rem;
+      font-weight: 600;
+      letter-spacing: .09em;
+      transition: background .14s, color .14s, box-shadow .17s;
+      box-shadow: 0 1px 8px #aef8a933;
+    }
+    .bio-contact a:hover, .bio-contact a:focus {
+      background: #9ce57c;
+      color: #102713;
+      box-shadow: 0 2px 15px #b8e37e88;
+    }
+    /* Terminal cursor */
     .terminal-cursor {
       display: inline-block;
-      width: 10px;
-      height: 20px;
-      background-color: #adff2f;
+      width: 11px; height: 21px;
+      background: #222;
+      border-radius: 1.3px;
+      margin-left: 7px;
       animation: blink 1s steps(1) infinite;
-      margin-left: 5px;
+      vertical-align: middle;
     }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    @keyframes blink { 0%,100% {opacity:1;} 50% {opacity:0;} }
+    /* Mobile Responsive */
+    @media (max-width: 650px) {
+      .bio-panel { max-width: 98vw; padding: 1.1rem .4rem 1.5rem .4rem; }
+      .bio-photo { width: 110px; height: 110px; }
+      .bio-title { font-size: 1.28rem; }
+      .bio-role { font-size: .99rem;}
+      .bio-modules { grid-template-columns: 1fr; gap: 1em 0; }
+      .bio-contact { gap: .7em; }
     }
   </style>
 </head>
-<body class="crt">
-  <div class="container">
-    <div class="photo" aria-label="Portrait photo"></div>
-
-    <h1>Behind the Signal</h1>
-
-    <p>
-      Hey, I’m <strong>Pedro</strong> — I craft signal-driven media systems — from eerie soundscapes and brutalist interfaces to glitchy web rituals and experimental Godot games.
-      <br /><br />
-      <strong>Iron Signal Works</strong> is where these converge: narrative, code, and sound, engineered into something strange, cohesive, and unforgettable.
-    </p>
-
-    <h2>Core Modules</h2>
-
-    <details>
-      <summary>Audio & Sound</summary>
-      <ul>
-        <li>Sound Design & Audio Branding</li>
-        <li>Concept Soundtracks & Atmospheres</li>
-        <li>Interactive Audio Systems (Godot, Web Audio API)</li>
-        <li>Voice Processing & Glitch Environments</li>
-      </ul>
-    </details>
-
-    <details>
-      <summary>Game & Systems</summary>
-      <ul>
-        <li>Experimental Game Development (Godot, Notepad prototypes)</li>
-        <li>Signal-Driven Interfaces</li>
-        <li>Narrative Architecture</li>
-        <li>UX for Nonlinear Systems</li>
-      </ul>
-    </details>
-
-    <details>
-      <summary>Design & Strategy</summary>
-      <ul>
-        <li>Brutalist Identity Systems</li>
-        <li>Motion Graphics & AV Integration</li>
-        <li>Visual Feedback Loop Design</li>
-        <li>Static/Glitched UI Experiments/Landing Pages</li>
-      </ul>
-    </details>
-
-    <details>
-      <summary>Creative Strategy & Integration</summary>
-      <ul>
-        <li>Story-Driven Content Systems</li>
-        <li>Cross-Platform Campaign Concepts</li>
-        <li>EPK / Press Kit Development</li>
-        <li>High-Concept Portfolio Systems</li>
-      </ul>
-    </details>
-
-    <h2>Let’s Connect</h2>
-    <p>
-      <a href="#">Contact Me</a><br />
-      <a href="#">Portfolio</a><br />
-      <a href="#">LinkedIn</a><br />
-      <a href="#">EPK / Press Kit</a>
-    </p>
-
-    <p><span>&gt;_</span><span class="terminal-cursor"></span></p>
+<body>
+  <div class="bio-panel" role="main">
+    <div class="bio-photo" aria-label="Portrait photo"></div>
+    <div class="bio-title">Pedro</div>
+    <div class="bio-role">Signal-Driven Media & Systems<br>Founder // IRON SIGNAL WORKS</div>
+    <hr class="divider" aria-hidden="true"/>
+    <div class="bio-section-title">Core Modules</div>
+    <div class="bio-modules">
+      <div class="bio-module">Landing Pages & Web Rituals</div>
+      <div class="bio-module">Audio Branding & Sound Design</div>
+      <div class="bio-module">Experimental Game Systems</div>
+      <div class="bio-module">UX for Nonlinear Narratives</div>
+      <div class="bio-module">Motion Graphics / AV Integration</div>
+      <div class="bio-module">Brutalist Identity & Portfolio</div>
+    </div>
+    <hr class="divider" aria-hidden="true"/>
+    <div class="bio-section-title">Contact & Links</div>
+    <div class="bio-contact">
+      <a href="mailto:main@ironsignalworks.com">Email</a>
+      <a href="https://github.com/ironsignalworks" target="_blank">GitHub</a>
+      <a href="https://ironsignalworks.itch.io" target="_blank">Itch</a>
+      <a href="/bio/" target="_blank">Full Bio</a>
+    </div>
+    <div style="margin:1.7em 0 .1em 0; text-align:center; color:#6a9863;">
+      <span>&gt;_</span><span class="terminal-cursor"></span>
+    </div>
   </div>
 </body>
 </html>

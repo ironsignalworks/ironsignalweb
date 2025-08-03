@@ -1,554 +1,463 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IRON SIGNAL WORKS</title>
-  <meta name="description"
-    content="Brutalist design, digital bunkers, and engineered audio for hostile web environments.">
-  <meta property="og:title" content="IRON SIGNAL WORKS">
-  <meta property="og:description"
-    content="Brutalist design, digital bunkers, and engineered audio for hostile web environments.">
-  <meta property="og:image" content="https://yourdomain.com/preview.png">
-  <meta property="og:url" content="https://ironsignalworks.com">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="description" content="Brutalist design, digital bunkers, and engineered audio for hostile web environments.">
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
   <style>
-    /* ===== RESET ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --signal-green: #00ff88;
+      --signal-aqua: #00ffaa;
+      --signal-blue: #00ffff;
+      --signal-cyan: #00ffcc;
+      --signal-bg: #000;
+      --signal-shadow: 0 0 18px var(--signal-green), 0 0 3px #011;
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0;}
+    html { scroll-behavior: smooth; }
     body {
-      background: black;
-      color: #00ff88;
+      background: var(--signal-bg);
+      color: var(--signal-green);
       font-family: 'Share Tech Mono', monospace;
       overflow-x: hidden;
     }
-
-    /* ===== TYPOGRAPHY ===== */
-    h1 {
-      font-size: 3.3rem;
-      letter-spacing: 0px;
-      text-align: center;
-      margin-bottom: 0rem;
-    }
-
-    p {
-      font-size: 1.5rem;
-      color: #00ffaa;
-      max-width: 800px;
-      margin: 10 auto 10px auto;
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    a {
-      color: #00ffcc;
-      text-decoration: none;
-      font-size: 1.1rem;
-      display: inline-block;
-      margin-top: 0.75rem;
-      transition: color 0.2s ease;
-    }
-
-    a:hover {
-      text-decoration: underline;
-      color: #00ffff;
-    }
-
-    /* ===== SECTIONS ===== */
-    section {
-      height: 105vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-size: cover;
-      background-position: top;
-      padding: 4rem;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 0;
-    }
-
-    section>* {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ===== LOGO ===== */
-    .logo-container {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      text-align: center;
-      transition: opacity 0.3s ease;
-    }
-
-    .logo-container.hidden {
-      opacity: 0;
-    }
-
-    .logo-container img {
-      width: 120px;
-      filter: brightness(1.3) contrast(1.2) drop-shadow(0 0 10px #00ff88);
-    }
-
-    .logo-container h1 {
-      font-size: 1.3rem;
-      margin-top: 0.3rem;
-      color: #00ff88;
-    }
-
-    /* ===== CRT OVERLAY ===== */
     .crt-overlay {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 11;
-      background: repeating-linear-gradient(to bottom,
-        rgba(0, 0, 0, 0.2) 0px,
-        rgba(0, 0, 0, 0.2) 1px,
-        transparent 1px,
-        transparent 4px);
+      z-index: 20;
+      background: repeating-linear-gradient(
+        to bottom, rgba(0,255,136,0.10) 0px, transparent 2px, transparent 7px
+      );
+      mix-blend-mode: lighten;
     }
+    body:after {
+      content: '';
+      position: fixed;
+      top:0; left:0; width:100vw; height:100vh;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom, rgba(0,255,170,0.04) 0, rgba(0,0,0,0.16) 2px, transparent 6px, transparent 8px
+      );
+      z-index: 21;
+    }
+    /* Logo tweaks */
+    .logo-container {
+      position: fixed;
+      top: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+      text-align: center;
+      pointer-events: none;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      width: 190px;
+    }
+    .logo-container img { width: 120px; filter: brightness(1.22) drop-shadow(0 0 12px var(--signal-green)); }
+    .logo-container h1 { 
+      font-size: 1.5rem; 
+      color: var(--signal-green); 
+      margin-top: 1.03rem; /* move the text a bit lower under the logo */
+      letter-spacing: 1.6px;
+      font-weight: bold;
+      text-shadow: 0 2px 6px #000a;
+    }
+    .logo-container.hidden { opacity: 0; transition: opacity .32s;}
 
-    /* ===== GRID STYLES ===== */
-    .image-grid,
-    .project-grid {
+    /* ALL SECTIONS - uniform style, fill, green line */
+    section {
+      min-height: 44vh;
       display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      margin-top: 2rem;
+      padding: 6.1rem 2vw 4.5rem 2vw;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 8px 80px 0 #011b 0 0 1px #222 inset;
     }
-
-    .image-grid a {
-      width: auto;
+    section::after {
+      content: '';
       display: block;
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 2.5px;
+      background: linear-gradient(90deg,var(--signal-green) 0%, var(--signal-aqua) 100%);
+      opacity: 0.92;
+      z-index: 10;
+      pointer-events: none;
     }
-
-    .image-grid img,
-    .project img.thumb,
+    /* INTRO section: move content down by 20% */
+  section.intro {
+  background-image: url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnRkd2NibXYweWwwZTB3OG9idmlwd3duaWNqbTJtNXdnNTd0MGhjNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/S45If9bT4ny1xAvA4A/giphy.gif');
+  min-height: 54vh;
+  border-bottom: none;
+  justify-content: flex-start;
+  padding-top: calc(8.8rem + 20vh);
+  padding-bottom: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+section.intro::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,10,4,0.81) 0%,
+    rgba(0,25,8,0.73) 65%,
+    rgba(0,35,12,0.72) 100%
+  );
+  pointer-events: none;
+}
+section.intro > * {
+  position: relative;
+  z-index: 2;
+}
+    h1 {
+      font-size: 2.7rem;
+      letter-spacing: 1.5px;
+      text-shadow: var(--signal-shadow);
+      text-align: center;
+      margin-bottom: 0.7em;
+      font-weight: 700;
+    }
+    /* --- MAKE SECONDARY FONTS LARGER --- */
+    p, 
+    .archive-thumb .meta p,
+    form label,
+    form input,
+    form textarea,
+    form button,
+    .signal-footer {
+      font-size: 1.27rem !important;
+    }
+    p {
+      color: var(--signal-aqua);
+      text-align: center;
+      margin: 0.25em auto 1em auto;
+      line-height: 1.8;
+      max-width: 820px;
+      letter-spacing: .22px;
+    }
+    .archive-thumb .meta p { line-height: 1.5; }
+    .signal-footer { font-size: 1.11rem !important;}
+    .archive-thumb .meta ul, .archive-thumb .meta li { font-size: 1.13rem !important;}
+    a {
+      color: var(--signal-cyan);
+      text-decoration: none;
+      font-size: 1.07rem;
+      display: inline-block;
+      margin-top: .8rem;
+      transition: color .22s cubic-bezier(.33,1,.68,1);
+    }
+    a:hover { color: var(--signal-blue); text-decoration: underline; }
+    @keyframes float {
+      0% { transform: rotate(90deg) translateY(0); }
+      50% { transform: rotate(90deg) translateY(8px); }
+      100% { transform: rotate(90deg) translateY(0); }
+    }
+    #scrollArrow {
+      display: inline-block;
+      transform: rotate(90deg);
+      font-size: 1.6em;
+      animation: float 2s ease-in-out infinite;
+      cursor: pointer;
+      filter: drop-shadow(0 0 7px var(--signal-green));
+      margin-left: .1em;
+      margin-bottom: -0.1em;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.3rem 1.2rem;
+      width: 100%;
+      max-width: 1020px;
+      margin: 3rem auto 1.5rem auto;
+      z-index: 2;
+    }
+    .project {
+      background: #080f0b;
+      border: 2px solid var(--signal-aqua);
+      border-radius: 14px;
+      box-shadow: 0 2px 30px #00ff8844;
+      transition: 
+        transform .18s cubic-bezier(.2,.8,.4,1),
+        box-shadow .15s,
+        border-color .18s;
+      cursor: pointer;
+      overflow: hidden;
+      padding-bottom: .3em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .project:hover {
+      transform: scale(1.033);
+      border-color: var(--signal-blue);
+      box-shadow: 0 0 16px 3px var(--signal-blue), 0 2px 18px 0 #022d;
+    }
+    .project img.thumb {
+      width: 100%;
+      height: 166px;
+      object-fit: cover;
+      background: #101;
+      border-bottom: 1.5px solid var(--signal-blue);
+      filter: saturate(1.2) contrast(1.06) brightness(1.03);
+      margin-bottom: .4em;
+    }
+    .project h3 {
+      font-size: 1.22rem;
+      color: var(--signal-aqua);
+      letter-spacing: .6px;
+      margin: .17em 0 0 0;
+      font-weight: 600;
+      text-align: center;
+      text-shadow: 0 1px 6px #011;
+    }
+    .project-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.96);
+      z-index: 990;
+      overflow-y: auto;
+      padding: 2.8rem 1.7vw 2.5rem 1.7vw;
+      box-sizing: border-box;
+      animation: archiveFadeIn .34s cubic-bezier(.33,1,.68,1);
+    }
+    @keyframes archiveFadeIn {
+      0% { opacity: 0; transform: scale(1.06);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .modal-close-button {
+      position: absolute;
+      top: 1.1rem; right: 2.2rem;
+      font-size: 2.1rem;
+      color: var(--signal-aqua);
+      cursor: pointer;
+      z-index: 2000;
+      filter: drop-shadow(0 0 6px var(--signal-aqua));
+      font-weight: 700;
+      user-select: none;
+    }
+    .modal-content h2 {
+      font-size: 2rem;
+      color: var(--signal-green);
+      letter-spacing: 1.2px;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .modal-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(305px, 1fr));
+      gap: 2.3rem 1.3rem;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    .archive-thumb {
+      background: #181f18;
+      border: 2px solid var(--signal-aqua);
+      border-radius: 13px;
+      padding: 0 0 0.6em 0;
+      box-shadow: 0 0 18px 1px #00ffaa44;
+      transition: box-shadow .16s, border-color .14s;
+      overflow: hidden;
+      text-align: left;
+    }
+    .archive-thumb:hover {
+      box-shadow: 0 0 24px 5px var(--signal-blue), 0 2px 22px #011b;
+      border-color: var(--signal-blue);
+    }
     .archive-thumb img {
       width: 100%;
-      height: 169px;
-      display: block;
-      border: 0px solid #00ffaa;
-      background: black;
-      object-fit: fill;
-      transition: border-color 0.2s ease;
+      height: 170px;
+      object-fit: cover;
+      border-bottom: 1.2px solid var(--signal-blue);
+      background: #121212;
     }
-
-    .image-grid img:hover,
-    .project img.thumb:hover,
-    .archive-thumb img:hover {
-      border-color: #00ffff;
-    }
-
-    /* ===== PROJECT GRID STYLES ===== */
-    .project-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-
-    .project {
-      width: 300px;
-      cursor: pointer;
-      border: 2px solid #00ffaa;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .project:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 15px #00ff88;
-    }
-
-    /* ===== ARCHIVE STYLES (General) ===== */
-    .archive-section {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      z-index: 999;
-      display: none;
-      overflow-y: auto;
-      padding: 2rem;
-      box-sizing: border-box;
-    }
-
-    .archive-section .archive-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      max-width: 100%;
-      margin: 2rem auto;
-    }
-
-    .archive-thumb {
-      width: 300px;
-      cursor: pointer;
-      text-align: center;
-      background: #111;
-      border: 2px solid #00ffaa;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .archive-thumb:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 12px #00ffaa88;
-    }
-
     .archive-thumb .meta {
-      padding: 0.6rem;
+      padding: .5rem 1rem .7rem .9rem;
     }
-
     .archive-thumb .meta h3 {
-      font-size: 1.1rem;
-      color: #00ffaa;
-      margin-bottom: 0.4rem;
+      color: var(--signal-green);
+      font-size: 1.23rem;
+      margin-bottom: .2em;
+      font-weight: 700;
     }
-
     .archive-thumb .meta p {
-      font-size: 0.9rem;
-      color: #00ffcc;
-      opacity: 0.8;
-      line-height: 1.3;
+      font-size: 1.12rem !important;
+      color: var(--signal-cyan);
+      opacity: .97;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+      text-align: left;
     }
-
-    .archive-close-button {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 2rem;
-      color: #00ffaa;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    /* ===== VIDEO ARCHIVE STYLES (Specific) ===== */
-    #media-archive-section {}
-
-    #webdev-archive-section {}
-
-    #sampledungeon-archive-section {}
-
-    /* ===== FORM ===== */
     form {
-      margin-top: 3rem;
-      max-width: 600px;
-      width: 100%;
+      margin-top: 3.5rem;
+      max-width: 520px;
+      width: 98%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 2.2rem 2.2vw 2.7rem 2.2vw;
+      background: rgba(0,0,0,0.77);
+      border: 2px solid var(--signal-green);
+      border-radius: 18px;
+      box-shadow: 0 0 18px 1px var(--signal-green);
     }
-
     form label {
       display: block;
-      margin-bottom: 0rem;
-      font-size: 1.1rem;
+      font-size: 1.17rem !important;
+      margin-bottom: .1rem;
+      color: var(--signal-blue);
+      letter-spacing: .1em;
+      font-weight: 600;
     }
-
-    form input,
-    form textarea {
+    form input, form textarea {
       width: 100%;
-      padding: 0.7rem;
-      background: black;
-      color: #00ff88;
-      border: 1px solid #00ffaa;
-      margin-bottom: 1rem;
+      background: #000;
+      color: var(--signal-green);
+      border: 1.3px solid var(--signal-aqua);
+      margin-bottom: 1.2em;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 1rem;
+      font-size: 1.15rem;
+      border-radius: 7px;
+      padding: .8rem;
     }
-
     form button {
-      margin-top: 1rem;
-      background: #00ffaa;
-      color: black;
-      padding: 0.7rem 2rem;
+      background: var(--signal-aqua);
+      color: #010d06;
+      font-size: 1.19rem;
+      padding: .8rem 2.2rem;
+      border-radius: 12px;
       border: none;
-      cursor: pointer;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 1.1rem;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      font-weight: 700;
+      letter-spacing: .14em;
+      cursor: pointer;
+      transition: background-color .15s, color .16s;
+      box-shadow: 0 1px 10px var(--signal-blue);
+      margin-top: .2em;
     }
-
     form button:hover {
-      background-color: #00ffff;
-      color: black;
+      background: var(--signal-blue);
+      color: #000;
+      box-shadow: 0 1px 15px var(--signal-blue);
     }
-
-    /* ===== YOUTUBE MODAL ===== */
-    #ytModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 10000;
-    }
-
-    #ytModal .modal-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #000;
-      padding: 20px;
-      border: 2px solid #00ffaa;
-      box-shadow: 0 0 15px #00ff88;
-      color: #00ffaa;
-      font-family: 'Share Tech Mono', monospace;
-      max-width: 80%;
-      max-height: 80%;
-      overflow: auto;
-    }
-
-    #ytModal .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #00ffaa;
-      cursor: pointer;
-    }
-
-    /* ===== MEDIA QUERIES ===== */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-        margin-bottom: 3rem;
-      }
-
-      p {
-        font-size: 1.2rem;
-      }
-
-      .logo-container {
-        top: 10px;
-      }
-
-      .logo-container img {
-        width: 50px;
-      }
-
-      .logo-container h1 {
-        font-size: 1.1rem;
-      }
-
-      .project {
-        width: 250px;
-      }
-
-      .archive-thumb {
-        width: 100%;
-      }
-    }
-
-    /* Add title to the thumbs */
-    .project h3 {
-      font-size: 1rem;
+    .signal-footer {
+      width: 100vw;
+      background: #040a06;
+      color: var(--signal-aqua);
+      font-size: 1.13rem !important;
+      letter-spacing: .09em;
+      border-top: 2px solid var(--signal-green);
+      padding: 1.2em 0 .8em 0;
       text-align: center;
-      margin-top: 0.5rem;
-      color: #00ffaa;
+      margin-top: 2.5em;
+      z-index: 13;
+      box-shadow: 0 -2px 30px #00ffaa22;
     }
-
-    /* Style for the modal content */
-    .modal .modal-content {
-      max-width: 80%;
-      max-height: 80%;
-      overflow: auto;
-      padding: 20px;
-      box-sizing: border-box;
+    .signal-footer a { margin: 0 .7em; }
+    @media (max-width: 900px) {
+      section { padding: 4.3rem 1vw 3rem 1vw; }
+      .project-grid, .modal-gallery { grid-template-columns: 1fr; }
+      .logo-container img { width: 56px; }
+      h1 { font-size: 2.1rem; }
+      .modal-content h2 { font-size: 1.5rem;}
+    }
+    @media (max-width: 600px) {
+      .logo-container { top: 7px; }
+      .logo-container img { width: 40px;}
+      section, form { padding-left: 2vw; padding-right: 2vw;}
+      h1 { font-size: 1.26rem; }
+      section.intro { padding-top: calc(7.3rem + 12vh);}
     }
   </style>
 </head>
-
 <body>
-  <!-- Logo -->
+  <!-- Logo (no box, floating, text lower) -->
   <div class="logo-container" id="logoContainer">
     <img src="isw.png" alt="Logo">
     <h1>IRON SIGNAL WORKS</h1>
   </div>
-
-  <!-- CRT Overlay -->
   <div class="crt-overlay"></div>
 
-<!-- Intro Section -->
-<section class="intro" style="background-image:url('b1.png');">
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-  <h1>Glitch rites for a world off-frequency.</h1>
-<p>&nbsp;</p>
-  <p>"Experimental systems and nonlinear UX for games, web and interactive media."</p>
+  <!-- INTRO -->
+  <section class="intro">
+    <h1>Glitch rites for a world off-frequency.</h1>
+    <p>Experimental systems and nonlinear UX for games, web and interactive media.</p>
+    <p style="margin-top: 3.2em; font-weight: bold; color: var(--signal-cyan)">
+      Let’s build something unstable
+      <span id="scrollArrow">➤</span>
+    </p>
+  </section>
 
-  <p style="margin-top: 3.5em; font-weight: bold;">
-    Let’s build something unstable 
-    <span id="scrollArrow" style="display: inline-block; transform: rotate(90deg); font-size: 1.5em; animation: float 2s ease-in-out infinite; cursor: pointer;">➤</span>
-  </p>
-</section>
-
-<!-- Prototypes & Blacksite Projects -->
-<section id="projectsSection" style="background-image:url('b3.png'); padding: 100px 20px; background-size: cover; background-position: center;">
-  <h1>PROTOTYPES & BLACKSITE PROJECTS</h1>
-  <p>CRT‑inspired websites, glitchy frontends, and bunker‑grade UI experiences that feel like digital warfare.</p>
-
-  <div class="project-grid">
-    <div class="project" onclick="openWebDevArchive()">
-      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDFpZHNpeGprcnJ0ODN0amJrcm85ZG93cmJxdGVvZWR5OWt3YTFweSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1Be4g2yeiJ1QfqaKvz/giphy.gif"
-        alt="Web Dev" class="thumb">
-      <h3>Web Dev</h3>
-    </div>
-
-    <div class="project" onclick="openGamesArchive()">
-      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHIybzI1NHIyNW1kaGJjZTIyM245Y3ozdHZrMGJrMTN6ZG9lcGJxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/z6lcNCB5QMrpC/giphy.gif" alt="Games" class="thumb">
-      <h3>Games</h3>
-    </div>
-
-    <div class="project" onclick="openBuiltWebsitesArchive()">
-      <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHpndXNmdTdla2twN3o5MmtrZG1pdzdzdmMxd3BheW5mMWtwNnpxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l46CovMju8ZQs2OQM/giphy.gif"
-        alt="Websites" class="thumb">
-      <h3>Websites</h3>
-    </div>
-  </div>
-</section>
-
-<!-- Float Animation CSS -->
-<style>
-@keyframes float {
-  0% { transform: rotate(90deg) translateY(0); }
-  50% { transform: rotate(90deg) translateY(5px); }
-  100% { transform: rotate(90deg) translateY(0); }
-}
-</style>
-
-<!-- Scroll Behavior Script -->
-<script>
-document.getElementById('scrollArrow').addEventListener('click', function () {
-  document.getElementById('projectsSection').scrollIntoView({ behavior: 'smooth' });
-});
-</script>
-
-
-  <!-- Data Vault -->
-  <section
-    style="background-image:url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExM29ieXJ0dTRsOG1nbnNwODZjZWxoeDQxNTAzaXhsN2F6NHdwcjBhbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26u6bnal23NhnIoZG/giphy.gif');">
-    <h1>DATA VAULT & VISUAL TERMINALS</h1>
-    <p>Interactive prototypes, digital bunkers, and signal-driven experiences crafted for subversive storytelling.</p>
+  <!-- PROTOTYPES & BLACKSITE PROJECTS -->
+  <section id="projectsSection" style="background-image:url('map1.png');">
+    <h1>PROTOTYPES & BLACKSITE PROJECTS</h1>
+    <p>CRT‑inspired websites, glitchy frontends, and bunker‑grade UI experiences that feel like digital warfare.</p>
     <div class="project-grid">
-      <div class="project" onclick="openSampleDungeonArchive()">
-        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGQ5NzVlY2JnNDF6a3NqY2QwOGVqdTYyeWNwYnJuMXlrN2J0MGJieCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PeamRA58Hn8M8baGva/giphy.gif" alt="Sample Dungeon"
-          class="thumb">
-        <h3>Sample Dungeon</h3>
+      <!-- WEB DEV MODAL THUMB -->
+      <div class="project" onclick="openModal('webdev-modal')">
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDFpZHNpeGprcnJ0ODN0amJrcm85ZG93cmJxdGVvZWR5OWt3YTFweSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1Be4g2yeiJ1QfqaKvz/giphy.gif" alt="Web Dev" class="thumb">
+        <h3>Web Dev</h3>
       </div>
-      <div class="project" onclick="openLayoutDesignArchive()">
-        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmtjZXVybTB1NDI3bGNlZGpjNWs3dzVzeWMzdjFrdm1ueDFwaDloYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7aDdv2sRPA8p4I9O/giphy.gif" alt="Layout Design"
-          class="thumb">
-        <h3>Layout Design</h3>
+      <!-- GAMES MODAL THUMB -->
+      <div class="project" onclick="openModal('games-modal')">
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHIybzI1NHIyNW1kaGJjZTIyM245Y3ozdHZrMGJrMTN6ZG9lcGJxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/z6lcNCB5QMrpC/giphy.gif" alt="Games" class="thumb">
+        <h3>Games</h3>
       </div>
-      <div class="project" onclick="openMediaArchive()">
-        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHc0MDFiaWl0cnRnOTNkN3N0eDFuM2d4eGZybXVqNmptMTEyZjd1ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/f3eREHgqZGpy3sKgtf/giphy.gif" alt="Videos" class="thumb">
-        <h3>Videos</h3>
+      <!-- WEBSITES MODAL THUMB -->
+      <div class="project" onclick="openModal('websites-modal')">
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHpndXNmdTdla2twN3o5MmtrZG1pdzdzdmMxd3BheW5mMWtwNnpxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l46CovMju8ZQs2OQM/giphy.gif" alt="Websites" class="thumb">
+        <h3>Websites</h3>
       </div>
     </div>
   </section>
 
-  <!-- Signal Corruption -->
-  <section
-    style="background-image:url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTZ3d3l3dXY4Yjh5Ymg5bTI0dnhxN2g1ZTZ5OWVveDdmdW53ejByOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/10DnwPMOWFxn7G/giphy.gif');">
+   <!-- SIGNAL CORRUPTION -->
+  <section style="background-image:url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTZ3d3l3dXY4Yjh5Ymg5bTI0dnhxN2g1ZTZ5OWVveDdmdW53ejByOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/10DnwPMOWFxn7G/giphy.gif');">
     <h1>SIGNAL CORRUPTION</h1>
     <p>Disruptive creative applications for audio branding, music sync, and integrated experiences.</p>
     <div class="project-grid">
-      <div class="project"><img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExeW02NHdpaWt1MzJicWVzOGRhdTFoMzB2ZGpocTN0eG1maXY4MTVnbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/O0igWPM8Dw8PhAC4to/giphy.gif"
-          alt="Music Integration" class="thumb">
+      <!-- MUSIC INTEGRATION MODAL THUMB -->
+      <div class="project" onclick="openModal('music-modal')">
+        <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExeW02NHdpaWt1MzJicWVzOGRhdTFoMzB2ZGpocTN0eG1maXY4MTVnbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/O0igWPM8Dw8PhAC4to/giphy.gif" alt="Music Integration" class="thumb">
         <h3>Music Integration</h3>
       </div>
-      <div class="project"><img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHowb2c5cGtsZG5vM2R3ams5eTJ2bjAwcjdwYWI5OXN0bjl2eWZwNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l2Sq7wOMEHLjrLWNy/giphy.gif"
-          alt="Phantom Systems" class="thumb">
+      <!-- PHANTOM SYSTEMS MODAL THUMB -->
+      <div class="project" onclick="openModal('phantom-modal')">
+        <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHowb2c5cGtsZG5vM2R3ams5eTJ2bjAwcjdwYWI5OXN0bjl2eWZwNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l2Sq7wOMEHLjrLWNy/giphy.gif" alt="Phantom Systems" class="thumb">
         <h3>Phantom Systems</h3>
       </div>
-      <div class="project"><img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmYyM2JybTJrZHdwbDE2aTJvbGZhMXBkd2Q1aDJiNHBqY3A2c3BpYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ueldNMoWYzY4LLhL2c/giphy.gif" class="thumb">
+      <!-- SONIC CONTROL MODAL THUMB -->
+      <div class="project" onclick="openModal('sonic-modal')">
+        <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmYyM2JybTJrZHdwbDE2aTJvbGZhMXBkd2Q1aDJiNHBqY3A2c3BpYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ueldNMoWYzY4LLhL2c/giphy.gif" class="thumb">
         <h3>Sonic Control Surfaces</h3>
       </div>
     </div>
   </section>
 
-  <!-- Archive Sections -->
-  <div id="sampledungeon-archive-section" class="archive-section">
-    <div class="archive-close-button" onclick="closeSampleDungeonArchive()">×</div>
-    <h2>Sample Dungeon Vault</h2>
-    <div id="sampledungeon-archive" class="archive-container">
-      <div class="archive-thumb">
-        <a href="https://example.com/dungeon1.zip" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Dungeon+1" alt="Sample Dungeon Asset 1">
-          <div class="meta">
-            <h3>Sample Dungeon I: The Public Vault</h3>
-            <p>A free archive of curated sound FX, loops, atmospheres, and one-shots — built for indie devs, web audio experiments, and lo-fi rituals. Drag-and-drop ready, game-engine friendly (Godot, Unity, Web Audio).</p>
+<!-- ================= MODALS ================= -->
 
-<p>Includes:
-• Footsteps, doors, impacts, drones
-• Glitch FX, ambient loops, UI blips
-• WAV / OGG formats, clean and ready to drop in
-</p>
-<p>Ideal for:
-Game jams, browser games, prototypes, dev testing, and low-budget builds.</p>
-          </div>
-        </a>
-      </div>
-      <div class="archive-thumb">
-        <a href="https://example.com/dungeon2.zip" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Dungeon+2" alt="Sample Dungeon Asset 2">
-          <div class="meta">
-            <h3>Sample Dungeon II: The Deep Vault</h3>
-            <p>Advanced layers of sonic corruption, rare, warped, and system-reactive samples built for signal-based audio engines, horror atmospheres, and nonlinear gameplay.
-</p>
-<p>Includes:
-• Modular sound chains & multi-stems
-• Reactive ambiences, granular glitches, psychoacoustic FX
-• Ready for layering, randomization, and custom logic triggers
-</p>
-<p>Ideal for:
-Immersive game experiences, interactive installations, and audio-heavy design systems.</p>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div id="webdev-archive-section" class="archive-section">
-    <div class="archive-close-button" onclick="closeWebDevArchive()">×</div>
+<!-- WEB DEV MODAL -->
+<div id="webdev-modal" class="project-modal">
+  <div class="modal-close-button" onclick="closeModal('webdev-modal')">×</div>
+  <div class="modal-content">
     <h2>Web Development Projects</h2>
-    <div id="webdev-archive" class="archive-container">
+    <div class="modal-gallery">
       <div class="archive-thumb">
         <a href="https://ironsignalworks.github.io/cypherengine/" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Cypher+Engine" alt="Cypher Engine">
+          <img src="https://image.thum.io/get/width/600/crop/https://ironsignalworks.github.io/cypherengine/" alt="Cypher Engine">
           <div class="meta">
             <h3>Cypher Engine</h3>
             <p>A website for Cypher Engine.</p>
@@ -557,7 +466,7 @@ Immersive game experiences, interactive installations, and audio-heavy design sy
       </div>
       <div class="archive-thumb">
         <a href="https://ironsignalworks.github.io/radiofrier/" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Radiofrier" alt="Radiofrier">
+          <img src="https://image.thum.io/get/width/600/crop/https://ironsignalworks.github.io/radiofrier/" alt="Radiofrier">
           <div class="meta">
             <h3>Radiofrier</h3>
             <p>A website for Radiofrier.</p>
@@ -566,7 +475,7 @@ Immersive game experiences, interactive installations, and audio-heavy design sy
       </div>
       <div class="archive-thumb">
         <a href="https://ironsignalworks.github.io/asciiapocalypse/" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=ASCII+Apocalypse" alt="ASCII Apocalypse">
+          <img src="https://image.thum.io/get/width/600/crop/https://ironsignalworks.github.io/asciiapocalypse/" alt="ASCII Apocalypse">
           <div class="meta">
             <h3>ASCII Apocalypse</h3>
             <p>A website for ASCII Apocalypse.</p>
@@ -575,7 +484,7 @@ Immersive game experiences, interactive installations, and audio-heavy design sy
       </div>
       <div class="archive-thumb">
         <a href="#" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Red+Haven" alt="Red Haven Network">
+          <img src="https://image.thum.io/get/width/600/crop/https://ironsignalworks.github.io/redhaven/" alt="Red Haven Network">
           <div class="meta">
             <h3>Red Haven Network</h3>
             <p>Placeholder for Red Haven Network.</p>
@@ -583,276 +492,239 @@ Immersive game experiences, interactive installations, and audio-heavy design sy
         </a>
       </div>
     </div>
-  </div>
-
-  <div id="media-archive-section" class="archive-section">
-    <div class="archive-close-button" onclick="closeMediaArchive()">×</div>
-    <h2>Media Archive</h2>
-    <div id="media-archive" class="archive-container">
-      <!-- Content will be dynamically added here -->
-    </div>
-  </div>
-
-<div id="games-archive-section" class="archive-section">
-  <div class="archive-close-button" onclick="closeGamesArchive()">×</div>
-  <h2 style="text-align: left;">Games</h2>
-  <div id="games-archive" class="archive-container">
-
-    <!-- Depth Charge 666 -->
-    <div class="archive-thumb">
-      <a href="https://ironsignalworks.github.io/depthcharge666/" target="_blank" style="text-decoration: none; color: inherit;">
-        <img src="g1.png" alt="Depth Charge 666" style="display: block; margin-bottom: 8px;">
-        <div class="meta" style="text-align: left;">
-          <h3 style="margin: 0 0 6px 0;">Depth Charge 666</h3>
-          <p style="margin: 0 0 6px 0; font-weight: bold;">Genre: Naval Battle / WWII</p>
-          <p style="margin: 0;">A straightforward naval battle game set in the Pacific during WWII. Simple controls and retro-style gameplay with a focus on quick action and fun strategy.</p>
-        </div>
-      </a>
-    </div>
-
-    <!-- Jungle Siege 79 -->
-    <div class="archive-thumb">
-      <a href="https://ironsignalworks.github.io/junglesiege79/" target="_blank" style="text-decoration: none; color: inherit;">
-        <img src="g2.png" alt="Jungle Siege 79" style="display: block; margin-bottom: 8px;">
-        <div class="meta" style="text-align: left;">
-          <h3 style="margin: 0 0 6px 0;">Jungle Siege 79</h3>
-          <p style="margin: 0 0 6px 0; font-weight: bold;">Genre: Shooter / Action</p>
-          <p style="margin: 0;">Drive a tank and fight waves of zombies in jungle warzones. Basic shooter mechanics combined with survival elements. Classic lo-fi graphics and arcade-style gameplay make it easy to jump in and play.</p>
-        </div>
-      </a>
-    </div>
-
-    <!-- Vault Hunter 84 -->
-    <div class="archive-thumb">
-      <a href="https://ironsignalworks.github.io/vaulthunter84/" target="_blank" style="text-decoration: none; color: inherit;">
-        <img src="g3.png" alt="Vault Hunter 84" style="display: block; margin-bottom: 8px;">
-        <div class="meta" style="text-align: left;">
-          <h3 style="margin: 0 0 6px 0;">Vault Hunter 84</h3>
-          <p style="margin: 0 0 6px 0; font-weight: bold;">Genre: Puzzle / Minesweeper-style</p>
-          <p style="margin: 0;">A minimalistic minesweeper-inspired game where you hunt for hidden nukes across a Cold War paranoia grid. Simple visuals and straightforward gameplay challenge your logic and patience.</p>
-        </div>
-      </a>
-    </div>
-
-    <!-- Rise of the Yeast -->
-    <div class="archive-thumb">
-      <a href="https://ironsignalworks.github.io/riseoftheyeast/" target="_blank" style="text-decoration: none; color: inherit;">
-        <img src="g4.png" alt="Rise of the Yeast" style="display: block; margin-bottom: 8px;">
-        <div class="meta" style="text-align: left;">
-          <h3 style="margin: 0 0 6px 0;">Rise of the Yeast</h3>
-          <p style="margin: 0 0 6px 0; font-weight: bold;">Genre: Educational / Tower Defense</p>
-          <p style="margin: 0;">An educational game inspired by Plants vs. Zombies where you defend environments like kitchens or labs from invading bacteria using simple tower defense mechanics and pixel art style.</p>
-        </div>
-      </a>
-    </div>
-
-    <!-- Wasteland Hustle -->
-    <div class="archive-thumb">
-      <a href="https://ironsignalworks.github.io/wastelandhustle/" target="_blank" style="text-decoration: none; color: inherit;">
-        <img src="g5.png" alt="Wasteland Hustle" style="display: block; margin-bottom: 8px;">
-        <div class="meta" style="text-align: left;">
-          <h3 style="margin: 0 0 6px 0;">Wasteland Hustle</h3>
-          <p style="margin: 0 0 6px 0; font-weight: bold;">Genre: Post-Apocalyptic / Survival Strategy</p>
-          <p style="margin: 0;">A lo-fi post-apocalyptic survival game where you scavenge, trade, and hustle through the ruins. Build your stash, outsmart raiders, and try not to starve. Resource management meets gritty street smarts.</p>
-        </div>
-      </a>
-    </div>
-
-    <!-- Ghost of Chernobyl -->
-    <div class="archive-thumb">
-      <a href="https://ironsignalworks.github.io/ghostofchernobyl/" target="_blank" style="text-decoration: none; color: inherit;">
-        <img src="g6.png" alt="Ghost of Chernobyl" style="display: block; margin-bottom: 8px;">
-        <div class="meta" style="text-align: left;">
-          <h3 style="margin: 0 0 6px 0;">Ghost of Chernobyl</h3>
-          <p style="margin: 0 0 6px 0; font-weight: bold;">Genre: Atmospheric / Exploration</p>
-          <p style="margin: 0;">Explore an abandoned Soviet exclusion zone haunted by radiation and mystery. A lo-fi experience with light horror and environmental storytelling. Survive long enough to uncover what’s still lurking.</p>
-        </div>
-      </a>
-    </div>
-
   </div>
 </div>
 
-  <div id="builtwebsites-archive-section" class="archive-section">
-    <div class="archive-close-button" onclick="closeBuiltWebsitesArchive()">×</div>
-    <h2>Websites</h2>
-    <div id="builtwebsites-archive" class="archive-container">
-      <div class="archive-thumb">
-        <a href="https://ironsignalworks.github.io/cypherengine/" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Cypher+Engine" alt="Cypher Engine">
-          <div class="meta">
-            <h3>Cypher Engine</h3>
-            <p>A website for Cypher Engine.</p>
-          </div>
-        </a>
-      </div>
-      <div class="archive-thumb">
-        <a href="https://ironsignalworks.github.io/radiofrier/" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Radiofrier" alt="Radiofrier">
-          <div class="meta">
-            <h3>Radiofrier</h3>
-            <p>A website for Radiofrier.</p>
-          </div>
-        </a>
-      </div>
-      <div class="archive-thumb">
-        <a href="https://ironsignalworks.github.io/asciiapocalypse/" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=ASCII+Apocalypse" alt="ASCII Apocalypse">
-          <div class="meta">
-            <h3>ASCII Apocalypse</h3>
-            <p>A website for ASCII Apocalypse.</p>
-          </div>
-        </a>
-      </div>
-      <div class="archive-thumb">
-        <a href="#" target="_blank">
-          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Red+Haven" alt="Red Haven Network">
-          <div class="meta">
-            <h3>Red Haven Network</h3>
-            <p>Placeholder for Red Haven Network.</p>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
 
-  <div id="layoutdesign-archive-section" class="archive-section">
-    <div class="archive-close-button" onclick="closeLayoutDesignArchive()">×</div>
-    <h2>Layout Design</h2>
-    <div id="layoutdesign-archive" class="archive-container">
-      <div class="archive-thumb">
-        <a href="#" target="_blank">
-          <img src="https://i.ibb.co/j9QS0gZ6/s1-hits.png" alt="Layout Design 1">
-          <div class="meta">
-            <h3>Promos, Merch and Ads</h3>
-            <p>Hostile marketing and brutal coms</p>
-          </div>
-        </a>
-      </div>
-      <div class="archive-thumb">
-        <a href="#" target="_blank">
-          <img src="https://i.ibb.co/Ld9Dk8vR/article-df2149899-134-A66-A0000005-DC-664-964x703.png" alt="Layout Design 2">
-          <div class="meta">
-            <h3>Album Covers and Layouts</h3>
-            <p>Band branding and visual identity</p>
-          </div>
-        </a>
+  <!-- GAMES MODAL -->
+  <div id="games-modal" class="project-modal">
+    <div class="modal-close-button" onclick="closeModal('games-modal')">×</div>
+    <div class="modal-content">
+      <h2>Games</h2>
+      <div class="modal-gallery">
+        <div class="archive-thumb">
+          <a href="https://ironsignalworks.github.io/depthcharge666/" target="_blank">
+            <img src="g1.png" alt="Depth Charge 666">
+            <div class="meta">
+              <h3>Depth Charge 666</h3>
+              <p><b>Naval Battle / WWII</b><br>A straightforward naval battle game set in the Pacific during WWII. Simple controls and retro-style gameplay with a focus on quick action and fun strategy.</p>
+            </div>
+          </a>
+        </div>
+        <div class="archive-thumb">
+          <a href="https://ironsignalworks.github.io/junglesiege79/" target="_blank">
+            <img src="g2.png" alt="Jungle Siege 79">
+            <div class="meta">
+              <h3>Jungle Siege 79</h3>
+              <p><b>Shooter / Action</b><br>Drive a tank and fight waves of zombies in jungle warzones. Basic shooter mechanics combined with survival elements. Classic lo-fi graphics and arcade-style gameplay make it easy to jump in and play.</p>
+            </div>
+          </a>
+        </div>
+        <div class="archive-thumb">
+          <a href="https://ironsignalworks.github.io/vaulthunter84/" target="_blank">
+            <img src="g3.png" alt="Vault Hunter 84">
+            <div class="meta">
+              <h3>Vault Hunter 84</h3>
+              <p><b>Puzzle / Minesweeper-style</b><br>A minimalistic minesweeper-inspired game where you hunt for hidden nukes across a Cold War paranoia grid. Simple visuals and straightforward gameplay challenge your logic and patience.</p>
+            </div>
+          </a>
+        </div>
+        <div class="archive-thumb">
+          <a href="https://ironsignalworks.github.io/riseoftheyeast/" target="_blank">
+            <img src="g4.png" alt="Rise of the Yeast">
+            <div class="meta">
+              <h3>Rise of the Yeast</h3>
+              <p><b>Educational / Tower Defense</b><br>An educational game inspired by Plants vs. Zombies where you defend environments like kitchens or labs from invading bacteria using simple tower defense mechanics and pixel art style.</p>
+            </div>
+          </a>
+        </div>
+        <div class="archive-thumb">
+          <a href="https://ironsignalworks.github.io/wastelandhustle/" target="_blank">
+            <img src="g5.png" alt="Wasteland Hustle">
+            <div class="meta">
+              <h3>Wasteland Hustle</h3>
+              <p><b>Post-Apocalyptic / Survival Strategy</b><br>A lo-fi post-apocalyptic survival game where you scavenge, trade, and hustle through the ruins. Build your stash, outsmart raiders, and try not to starve. Resource management meets gritty street smarts.</p>
+            </div>
+          </a>
+        </div>
+        <div class="archive-thumb">
+          <a href="https://ironsignalworks.github.io/ghostofchernobyl/" target="_blank">
+            <img src="g6.png" alt="Ghost of Chernobyl">
+            <div class="meta">
+              <h3>Ghost of Chernobyl</h3>
+              <p><b>Atmospheric / Exploration</b><br>Explore an abandoned Soviet exclusion zone haunted by radiation and mystery. A lo-fi experience with light horror and environmental storytelling. Survive long enough to uncover what’s still lurking.</p>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- YouTube Modal -->
-  <div id="ytModal" class="archive-section">
-    <div class="archive-close-button" onclick="closeYTModal()">×</div>
-    <div class="modal-content" id="ytModalContent">
-      <!-- YouTube video will be embedded here -->
+  <!-- WEBSITES MODAL -->
+  <div id="websites-modal" class="project-modal">
+    <div class="modal-close-button" onclick="closeModal('websites-modal')">×</div>
+    <div class="modal-content">
+      <h2>Websites</h2>
+      <div class="modal-gallery">
+        <div class="archive-thumb">
+          <a href="https://ironsignalworks.github.io/cypherengine/" target="_blank">
+            <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Cypher+Engine" alt="Cypher Engine">
+            <div class="meta">
+              <h3>Cypher Engine</h3>
+              <p>A website for Cypher Engine.</p>
+            </div>
+          </a>
+        </div>
+        <div class="archive-thumb">
+          <a href="https://ironsignalworks.github.io/radiofrier/" target="_blank">
+            <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Radiofrier" alt="Radiofrier">
+            <div class="meta">
+              <h3>Radiofrier</h3>
+              <p>A website for Radiofrier.</p>
+            </div>
+          </a>
+        </div>
+        <div class="archive-thumb">
+          <a href="https://ironsignalworks.github.io/asciiapocalypse/" target="_blank">
+            <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=ASCII+Apocalypse" alt="ASCII Apocalypse">
+            <div class="meta">
+              <h3>ASCII Apocalypse</h3>
+              <p>A website for ASCII Apocalypse.</p>
+            </div>
+          </a>
+        </div>
+        <div class="archive-thumb">
+          <a href="#" target="_blank">
+            <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Red+Haven" alt="Red Haven Network">
+            <div class="meta">
+              <h3>Red Haven Network</h3>
+              <p>Placeholder for Red Haven Network.</p>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
- <section style="background-image: url('b12.png'); padding: 3rem; color: #fff;">
-<p>&nbsp;</p>
-  <h1>DEPLOYMENT CHANNEL</h1>
-  <p>Need a digital bunker built?<br>Let's deploy.</p>
+  <!-- MUSIC INTEGRATION MODAL (with Sample Dungeon) -->
+  <div id="music-modal" class="project-modal">
+    <div class="modal-close-button" onclick="closeModal('music-modal')">×</div>
+    <div class="modal-content">
+      <h2>Music Integration</h2>
+      <div class="modal-gallery">
+        <div class="archive-thumb">
+          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Music+Sync+Demo" alt="Music Sync Demo">
+          <div class="meta">
+            <h3>Custom Music Sync</h3>
+            <p>Audio branding, scoring, music integration for digital and interactive projects. <br>
+            <b>Contact for custom demos.</b></p>
+          </div>
+        </div>
+        <!-- Sample Dungeon as sub-gallery -->
+        <div class="archive-thumb">
+          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Sample+Dungeon" alt="Sample Dungeon">
+          <div class="meta">
+            <h3>Sample Dungeon</h3>
+            <p>A curated vault of sound FX, loops, atmospheres, and one-shots—built for indie devs, web audio experiments, and lo-fi rituals.</p>
+            <ul style="margin:0 0 .7em 0.5em; padding-left:1.2em; color:var(--signal-cyan); font-size:1em;">
+              <li><a href="https://example.com/dungeon1.zip" target="_blank">Sample Dungeon I: The Public Vault</a></li>
+              <li><a href="https://example.com/dungeon2.zip" target="_blank">Sample Dungeon II: The Deep Vault</a></li>
+            </ul>
+            <p style="font-size:0.98em;">Footsteps, doors, impacts, drones, glitch FX, modular chains, ambiences.<br>WAV/OGG. Game-engine friendly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <form action="mailto:main@ironsignalworks.com" method="POST" enctype="text/plain" style="max-width: 600px; width: 100%; margin-top: 1rem;">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required>
+  <!-- PHANTOM SYSTEMS MODAL -->
+  <div id="phantom-modal" class="project-modal">
+    <div class="modal-close-button" onclick="closeModal('phantom-modal')">×</div>
+    <div class="modal-content">
+      <h2>Phantom Systems</h2>
+      <div class="modal-gallery">
+        <div class="archive-thumb">
+          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Phantom+Systems+Demo" alt="Phantom Systems Demo">
+          <div class="meta">
+            <h3>Phantom UI</h3>
+            <p>Experimental UIs, adaptive layouts, nonlinear navigation and glitch-driven interactions. <br><b>Contact for prototypes or code drops.</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
+  <!-- SONIC CONTROL SURFACES MODAL -->
+  <div id="sonic-modal" class="project-modal">
+    <div class="modal-close-button" onclick="closeModal('sonic-modal')">×</div>
+    <div class="modal-content">
+      <h2>Sonic Control Surfaces</h2>
+      <div class="modal-gallery">
+        <div class="archive-thumb">
+          <img src="https://via.placeholder.com/300x169/00ffaa/000000?text=Sonic+Surface+Demo" alt="Sonic Control Surface Demo">
+          <div class="meta">
+            <h3>Custom Control Surfaces</h3>
+            <p>Engineered audio interfaces for live performance, web art, installations, and browser-based synthesis.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <label for="message">Message</label>
-    <textarea id="message" name="message" rows="3" required></textarea>
-
-    <button type="submit">Deploy</button>
-  </form>
-
-  <p style="margin-top: 0rem;">
-    <a href="mailto:main@ironsignalworks.com" aria-label="Email">Email</a> •
-    <a href="bio/" target="_blank" aria-label="Bio">Bio</a> •
-    <a href="https://github.com/ironsignalworks" target="_blank" aria-label="GitHub">GitHub</a> •
-    <a href="https://ironsignalworks.itch.io" target="_blank" aria-label="Itch">Itch</a>
-  </p>
-</section>
-
-
-<script>
-  // ===== Logo Hide on Scroll (Faster & Based on intro height) =====
-  const logoContainer = document.getElementById('logoContainer');
-  const introHeight = document.querySelector('.intro').offsetHeight; // Get intro height
-
-  window.addEventListener('scroll', function() {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    // Hide logo earlier at 10px or after intro section (whichever comes first)
-    if (scrollTop > 10 || scrollTop > introHeight) {
-      logoContainer.classList.add('hidden');
-    } else {
-      logoContainer.classList.remove('hidden');
+  <!-- CONTACT -->
+  <section style="background-image: url('b12.png'); color: #fff;">
+    <h1>DEPLOYMENT CHANNEL</h1>
+    <p>Need a digital bunker built?<br>Let's deploy.</p>
+    <form action="mailto:main@ironsignalworks.com" method="POST" enctype="text/plain">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="3" required></textarea>
+      <button type="submit">Deploy</button>
+    </form>
+    <p style="margin-top: 1.2em; color: var(--signal-cyan);">
+      <a href="mailto:main@ironsignalworks.com">Email</a> •
+      <a href="bio/" target="_blank">Dossier</a> •
+      <a href="https://github.com/ironsignalworks" target="_blank">GitHub</a> •
+      <a href="https://ironsignalworks.itch.io" target="_blank">Itch</a>
+    </p>
+  </section>
+  <div class="signal-footer">
+    &copy; 2025 IRON SIGNAL WORKS &mdash; Brutalist Bunkerware for Hostile Web Environments.
+  </div>
+  <script>
+    // Logo Hide on Scroll
+    const logoContainer = document.getElementById('logoContainer');
+    const introHeight = document.querySelector('.intro').offsetHeight;
+    window.addEventListener('scroll', function () {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > 10 || scrollTop > introHeight) {
+        logoContainer.classList.add('hidden');
+      } else {
+        logoContainer.classList.remove('hidden');
+      }
+    });
+    // Modal Logic
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+      document.body.style.overflow = 'hidden';
     }
-  });
-
-  // ===== Archive Logic =====
-  function openArchive(archiveId) {
-    const archiveSection = document.getElementById(archiveId + "-archive-section");
-    archiveSection.style.display = "block";
-  }
-
-  function closeArchive(archiveId) {
-    const section = document.getElementById(archiveId + "-archive-section");
-    section.style.display = "none";
-  }
-
-  // ===== YouTube Modal =====
-  function openYTModal(youtubeId) {
-    const modal = document.getElementById('ytModal');
-    const modalContent = document.getElementById('ytModalContent');
-
-    modalContent.innerHTML = `
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>
-    `;
-    modal.style.display = "block";
-  }
-
-  function closeYTModal() {
-    const modal = document.getElementById('ytModal');
-    const modalContent = document.getElementById('ytModalContent');
-    modalContent.innerHTML = '';
-    modal.style.display = "none";
-  }
-
-  // ===== Archive Opening Functions =====
-  function openSampleDungeonArchive() { openArchive("sampledungeon"); }
-  function closeSampleDungeonArchive() { closeArchive("sampledungeon"); }
-  function openWebDevArchive() { openArchive("webdev"); }
-  function closeWebDevArchive() { closeArchive("webdev"); }
-  function openGamesArchive() { openArchive("games"); }
-  function closeGamesArchive() { closeArchive("games"); }
-  function openBuiltWebsitesArchive() { openArchive("builtwebsites"); }
-  function closeBuiltWebsitesArchive() { closeArchive("builtwebsites"); }
-  function openLayoutDesignArchive() { openArchive("layoutdesign"); }
-  function closeLayoutDesignArchive() { closeArchive("layoutdesign"); }
-
-  function openMediaArchive() {
-    openArchive("media");
-    // Example YouTube ID
-    openYTModal("dQw4w9WgXcQ");
-  }
-  function closeMediaArchive() { closeArchive("media"); }
-
-  // ===== ESC Key Global Close =====
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeSampleDungeonArchive();
-      closeWebDevArchive();
-      closeMediaArchive();
-      closeYTModal();
-      closeGamesArchive();
-      closeBuiltWebsitesArchive();
-      closeLayoutDesignArchive();
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+      document.body.style.overflow = '';
     }
-  });
-</script>
+    document.getElementById('scrollArrow').addEventListener('click', function () {
+      document.getElementById('projectsSection').scrollIntoView({ behavior: 'smooth' });
+    });
+    // ESC closes modals
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        ['webdev-modal', 'games-modal', 'websites-modal', 'music-modal', 'phantom-modal', 'sonic-modal'].forEach(id => closeModal(id));
+      }
+    });
+  </script>
 </body>
-
 </html>
+
