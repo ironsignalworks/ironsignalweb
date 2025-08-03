@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <title>Behind the Signal</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: #adff2f; /* radioactive lime green */
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px; /* 20% smaller */
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3pqYWJkZXh4dnQ4aWhwNHBrcXhnNGN4N3c3eTV3Z2Zmc2l1c2RxeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEduXdgk7mKRnwrlK/giphy.gif') no-repeat center center / cover;
+      opacity: 0.01;
+      z-index: -1;
+      animation: pulse 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.07; }
+      50% { opacity: 0.1; }
+    }
+
+    .crt {
+      text-shadow: 0 0 2px #adff2f, 0 0 8px #adff2f;
+      animation: flicker 2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.95; }
+      55% { opacity: 1; }
+      60% { opacity: 0.92; }
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 4rem auto;
+      padding: 2rem;
+      border: 2px solid #adff2f;
+      background-color: rgba(0, 0, 0, 0.75);
+      opacity: 0.5;
+    }
+
+    h1, h2 {
+      text-transform: uppercase;
+      border-bottom: 1px solid #adff2f;
+      padding-bottom: 0.25rem;
+      margin-top: 2rem;
+    }
+
+    .photo {
+      width: 200px;
+      height: 200px;
+      background: url('bio1.png') no-repeat center center / cover;
+      border: 2px solid #adff2f;
+      margin: 0 auto 2rem auto;
+      box-shadow: 0 0 10px #adff2f;
+    }
+
+    a {
+      color: #adff2f;
+      text-decoration: underline;
+    }
+
+    details {
+      margin-bottom: 0rem;
+      cursor: pointer;
+    }
+
+    summary {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      outline: none;
+    }
+
+    ul {
+      margin: 0 0 0 1.5rem;
+      padding: 0;
+      list-style-type: disc;
+    }
+
+    ul li {
+      margin-bottom: 0.25rem;
+    }
+
+    .terminal-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 20px;
+      background-color: #adff2f;
+      animation: blink 1s steps(1) infinite;
+      margin-left: 5px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body class="crt">
+  <div class="container">
+    <div class="photo" aria-label="Portrait photo"></div>
+
+    <h1>Behind the Signal</h1>
+
+    <p>
+      Hey, I’m <strong>Pedro</strong> — I craft signal-driven media systems — from eerie soundscapes and brutalist interfaces to glitchy web rituals and experimental Godot games.
+      <br /><br />
+      <strong>Iron Signal Works</strong> is where these converge: narrative, code, and sound, engineered into something strange, cohesive, and unforgettable.
+    </p>
+
+    <h2>Core Modules</h2>
+
+    <details>
+      <summary>Audio & Sound</summary>
+      <ul>
+        <li>Sound Design & Audio Branding</li>
+        <li>Concept Soundtracks & Atmospheres</li>
+        <li>Interactive Audio Systems (Godot, Web Audio API)</li>
+        <li>Voice Processing & Glitch Environments</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Game & Systems</summary>
+      <ul>
+        <li>Experimental Game Development (Godot, Notepad prototypes)</li>
+        <li>Signal-Driven Interfaces</li>
+        <li>Narrative Architecture</li>
+        <li>UX for Nonlinear Systems</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Design & Strategy</summary>
+      <ul>
+        <li>Brutalist Identity Systems</li>
+        <li>Motion Graphics & AV Integration</li>
+        <li>Visual Feedback Loop Design</li>
+        <li>Static/Glitched UI Experiments/Landing Pages</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Creative Strategy & Integration</summary>
+      <ul>
+        <li>Story-Driven Content Systems</li>
+        <li>Cross-Platform Campaign Concepts</li>
+        <li>EPK / Press Kit Development</li>
+        <li>High-Concept Portfolio Systems</li>
+      </ul>
+    </details>
+
+    <h2>Let’s Connect</h2>
+    <p>
+      <a href="#">Contact Me</a><br />
+      <a href="#">Portfolio</a><br />
+      <a href="#">LinkedIn</a><br />
+      <a href="#">EPK / Press Kit</a>
+    </p>
+
+    <p><span>&gt;_</span><span class="terminal-cursor"></span></p>
+  </div>
+</body>
+</html>

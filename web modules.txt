@@ -1,0 +1,44 @@
+
+
+
+1. PROTOTYPES & BLACKSITE PROJECTS
+
+Core creative development work that shows your range as a game/app/web developer.
+
+Developed Games
+Independent releases and experimental prototypes in Godot, Unity, and WebGL.
+Examples: browser-based experiences, downloadable prototypes, surreal or genre-defying mini-games.
+
+Developed Apps
+Creative utilities like Radiofier and Codex99—tools that turn sound or text into interactive art.
+Focus: FX processing, audio-reactive UI, procedural systems, retro UX.
+
+Built Websites
+Custom-coded sites and interactive portfolios with CRT styling, glitch effects, and layered nostalgia.
+Responsive layouts, performance-conscious CSS/JS, custom players and UI.
+
+🧠 2. DATA VAULT & VISUAL TERMINALS
+
+Projects rooted in content generation, media design, and archive aesthetics.
+
+Digital Archive – Synth Sample Archive
+A procedurally indexed, glitch-skinned archive of custom synth samples.
+Includes neural prompt interactions, waveform previews, looping demos.
+
+Produced Videos
+Creative direction, editing, and FX-heavy short-form videos or visual explainers.
+Music visuals, YouTube UI walkthroughs, marketing reels.
+
+Developed Layout Design
+Magazine-style, static distortion UI with layered CRT textures and terminal aesthetics.
+Used across apps, video thumbnails, and websites.
+
+🎸 3. SIGNAL CORRUPTION & BROADCAST LOOPS
+Creative marketing, music branding, and identity work for bands or clients.
+
+Bands and Band Marketing/Branding
+Art direction, logo design, EPKs, social media assets, and immersive campaigns.
+Projects: Fatal Exposure, Dead Gravel, Viper Claw.
+
+Music Integration in Apps/Games
+Sound design, audio branding, and procedural music elements integrated into games or web tools.
